@@ -19,14 +19,12 @@
     "eventsource-parser": "^0.1.0",
     "fzf": "^0.5.1",
     "highlight.js": "^11.7.0",
-    "https-proxy-agent": "^5.0.1",
     "html-to-image": "^1.11.11",
     "just-throttle": "^4.2.0",
     "katex": "^0.6.0",
     "markdown-it": "^13.0.1",
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-katex": "^2.0.3",
-    "node-fetch": "^3.3.0",
     "solid-js": "^1.6.11"
   },
   "devDependencies": {

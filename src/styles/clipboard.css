@@ -27,8 +27,8 @@ button.copy {
   align-items: center;
   border: 1px solid var(--copy-border-color);
   border-radius: 4px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: var(--copy-bg);
   opacity: 0;
   cursor: pointer;
@@ -70,9 +70,9 @@ button.copy:hover.copied::before {
   border-right: 0;
   border-radius: 4px 0 0 4px;
   width: 64px;
-  height: 40px;
+  height: 30px;
   text-align: center;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--copy-active-text);
   background-color: var(--copy-hover-bg);

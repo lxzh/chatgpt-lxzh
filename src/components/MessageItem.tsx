@@ -53,14 +53,14 @@ export default ({role, message, onDeleteClick, onGratuityClick}: Props) => {
     return (
         <div class="flex">
             <div
-                class="flex py-1 gap-3 px-4 rounded-lg transition-colors md:hover:bg-slate/5 dark:md:hover:bg-slate/2 relative message-item"
+                class="flex py-0 gap-2 px-4 rounded-lg transition-colors md:hover:bg-slate/5 dark:md:hover:bg-slate/2 relative message-item"
                 // class:op-75={role === "user"}
             >
                 <div
-                    class={`shrink-0 w-7 h-7 mt-4 rounded-full op-80 ${roleClass[role]}`}
+                    class={`shrink-0 w-5 h-5 mt-2 rounded-full op-80 ${roleClass[role]}`}
                 ></div>
                 <div
-                    class="message pr-5 prose prose-slate dark:prose-invert dark:text-slate break-words overflow-hidden"
+                    class="message py-0 pr-5 text-sm prose prose-slate dark:prose-invert dark:text-slate break-words overflow-hidden"
                     innerHTML={htmlString()}
                     onClick={(event) => {
                         if(event.target.tagName === 'A') {

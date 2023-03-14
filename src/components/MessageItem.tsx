@@ -86,7 +86,7 @@ export default ({role, message, onDeleteClick, onGratuityClick}: Props) => {
                 {/*</button>*/}
                 <div class='flex items-center'>
                     <button
-                        className="i-carbon:trash-can px-4 py-2 bg-op-5 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
+                        class="i-carbon:trash-can px-4 py-2 bg-op-5 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
                         onClick={() => onDeleteClick()}
                     />
                 </div>

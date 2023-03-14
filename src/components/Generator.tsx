@@ -29,7 +29,6 @@ export default (props: { prompts: PromptItem[] }) => {
   const [setting, setSetting] = createSignal(defaultSetting)
   const [compatiblePrompt, setCompatiblePrompt] = createSignal<PromptItem[]>([])
   const [gratuity, setShowGratuity] = createSignal(false)
-  const [showInput, setShowInput] = createSignal(false)
   const [containerWidth, setContainerWidth] = createSignal("init")
   const fzf = new Fzf(props.prompts, {
     selector: k => `${k.desc} (${k.prompt})`
@@ -63,18 +62,6 @@ export default (props: { prompts: PromptItem[] }) => {
       console.log("Setting parse error")
     }
   })
-  
-  // setMessageList([
-  //   ...messageList(),
-  //   // {
-  //   //   role: 'user',
-  //   //   content: '你好呀',
-  //   // },
-  //   // {
-  //   //   role: 'assistant',
-  //   //   content: '你好，请问有什么需要帮忙的吗',
-  //   // },
-  // ])
 
   createEffect(() => {
     if (messageList().length === 0) {
@@ -150,35 +137,6 @@ export default (props: { prompts: PromptItem[] }) => {
     setShowGratuity(false)
   }
 
-  const handleSettingClick = () => {
-    console.log("handleSettingClick")
-    handleOpenInput()
-  }
-
-  const handleOpenInput = () => {
-    console.log("handleOpenInput")
-    setShowInput(true)
-  }
-
-  const handleCloseInput = () => {
-    console.log("handleCloseInput")
-    apiKey.value = ''
-    setShowInput(false)
-  }
-
-  const handleSaveClick = async () => {
-    console.log("handleSaveClick")
-    const inputValue = apiKey.value
-    if(!inputValue) {
-      alert('Tip: Please enter a valid OpenAI API key')
-      // Modal.warning({ title: 'Tip: Please enter a valid OpenAI API key'})
-      return
-    }
-    const expires = new Date();
-    document.cookie = `apiKey=${inputValue}; path=/`;
-    handleCloseInput()
-  }
-
   const handleButtonClick = async (value?: string) => {
     const inputValue = value ?? inputContent()
     if (!inputValue) {
@@ -188,13 +146,6 @@ export default (props: { prompts: PromptItem[] }) => {
     // @ts-ignore
     // if (window?.umami) umami.trackEvent('chat_generate')
     setInputContent("")
-    // setMessageList([
-    //   ...messageList(),
-    //   {
-    //     role: 'user',
-    //     content: inputValue,
-    //   },
-    // ])
     if (
         !value ||
         value !==
@@ -335,30 +286,6 @@ export default (props: { prompts: PromptItem[] }) => {
               "background-color": "var(--c-bg)"
             }}
         >
-          {/*<div class="flex my-2 text-sm text-slate">*/}
-          {/*  <span class="text-1l text-slate font-extrabold mr-1">Kind reminder:</span>*/}
-          {/*  <span></span>*/}
-          {/*  <span px-1>For your stable use, it is recommended that you configure your own </span>*/}
-          {/*  <a border-b border-slate border-none hover:border-dashed*/}
-          {/*     href="https://platform.openai.com/account/api-keys" target="_blank">*/}
-          {/*    OpenAI API key.*/}
-          {/*  </a>*/}
-          {/*  <button title='Setting' onClick={handleSettingClick} px-1 h-1 py-0>*/}
-          {/*    <IconSetting/>*/}
-          {/*  </button>*/}
-          {/*</div>*/}
-
-
-          {/*<Dialog open={showInput()}>*/}
-          {/*  <DialogTitle>Please enter your own OpenAI API key</DialogTitle>*/}
-          {/*  <DialogContent>*/}
-          {/*    <TextField label='OpenAI API key' value={apiKey()} onChange={e => setApiKey(e.target.value)}/>*/}
-          {/*  </DialogContent>*/}
-          {/*  <DialogActions>*/}
-          {/*    <Button onClick={handleCloseInput}>Cancel</Button>*/}
-          {/*    <Button onClick={handleSaveClick}>Save</Button>*/}
-          {/*  </DialogActions>*/}
-          {/*</Dialog>*/}
           <For each={messageList()}>
             {(message, index) =>
                 <MessageItem role={message.role} message={message.content} onDeleteClick={() => {
@@ -374,7 +301,7 @@ export default (props: { prompts: PromptItem[] }) => {
           }
         </div>
         <div
-            className="pb-2em fixed bottom-0 z-100 op-0"
+            class="pb-2em fixed bottom-0 z-100 op-0"
             style={
               containerWidth() === "init"
                   ? {}
@@ -396,10 +323,10 @@ export default (props: { prompts: PromptItem[] }) => {
             />
           </Show>
           <Show when={!loading()} fallback={() =>
-              <div className="h-12 my-4 flex items-center justify-center bg-slate bg-op-15 text-slate rounded-sm">
+              <div class="h-12 my-4 flex items-center justify-center bg-slate bg-op-15 text-slate rounded-sm">
                 <span>AI is thinking...</span>
                 <div
-                    className="ml-1em px-2 py-0.5 border border-slate text-slate rounded-md text-sm op-70 cursor-pointer hover:bg-slate/10"
+                    class="ml-1em px-2 py-0.5 border border-slate text-slate rounded-md text-sm op-70 cursor-pointer hover:bg-slate/10"
                     onClick={stopStreamFetch}
                 >
                   不需要了
@@ -412,7 +339,7 @@ export default (props: { prompts: PromptItem[] }) => {
                   select={selectPrompt}
               ></PromptList>
             </Show>
-            <div className="my-2 flex items-end">
+            <div class="my-2 flex items-end">
           <textarea
               ref={inputRef!}
               id="input"
@@ -468,7 +395,7 @@ export default (props: { prompts: PromptItem[] }) => {
               <Show when={inputContent()}>
                 <div class="flex item-center">
                   <button
-                      className="i-carbon:add-filled absolute right-3.5em bottom-3.5em rotate-45 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
+                      class="i-carbon:add-filled absolute right-3.5em bottom-3.5em rotate-45 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
                       onClick={() => {
                         setInputContent("")
                         inputRef.focus()
@@ -477,7 +404,7 @@ export default (props: { prompts: PromptItem[] }) => {
                 </div>
               </Show>
               <div
-                  className="flex text-slate-7 dark:text-slate bg-slate bg-op-15 text-op-80! hover:text-op-100! h-3em items-center rounded-r"
+                  class="flex text-slate-7 dark:text-slate bg-slate bg-op-15 text-op-80! hover:text-op-100! h-3em items-center rounded-r"
                   style={{
                     "border-top-right-radius":
                         compatiblePrompt().length === 0 ? "0.25rem" : 0
@@ -486,77 +413,11 @@ export default (props: { prompts: PromptItem[] }) => {
                 <button
                     title="Send"
                     onClick={() => handleButtonClick()}
-                    className="i-carbon:send-filled text-5 mx-3"
+                    class="i-carbon:send-filled text-5 mx-3"
                 />
               </div>
             </div>
           </Show>
-          {/*{showInput() && (*/}
-          {/*    <Dialog*/}
-          {/*        title="OpenAI API key"*/}
-          {/*        onSave={handleSaveClick}*/}
-          {/*        onClose={handleCloseInput}*/}
-          {/*    />*/}
-          {/*)}*/}
-          {/*{savedValue() !== '' && (*/}
-          {/*    <div class="mt-4">Saved Value: <b>{savedValue()}</b>*/}
-          {/*    </div>*/}
-          {/*)}*/}
-
-          {/*<Dialog visible={showInput()} onClose={handleCloseInput}>*/}
-          {/*  <div>Please enter your own OpenAI API key</div>*/}
-          {/*  <input*/}
-          {/*      ref={apiKey!}*/}
-          {/*      type="text"*/}
-          {/*      id="input"*/}
-          {/*      placeholder="Enter a OpenAI API key"*/}
-          {/*      autofocus*/}
-          {/*      onKeyDown={(e) => {*/}
-          {/*        e.key === 'Enter' && !e.isComposing && handleSaveClick()*/}
-          {/*      }}*/}
-          {/*  />*/}
-          {/*  <div class='flex'>*/}
-          {/*    <button onClick={handleSaveClick}>Save</button>*/}
-          {/*    <button onClick={handleCloseInput}>Cancel</button>*/}
-          {/*  </div>*/}
-          {/*</Dialog>*/}
-          {/*<Show when={showInput()}>*/}
-          {/*  <div>Please enter your own OpenAI API key</div>*/}
-          {/*  <input*/}
-          {/*      ref={apiKey!}*/}
-          {/*      type="text"*/}
-          {/*      id="input"*/}
-          {/*      placeholder="Enter a OpenAI API key"*/}
-          {/*      autofocus*/}
-          {/*      onKeyDown={(e) => {*/}
-          {/*        e.key === 'Enter' && !e.isComposing && handleSaveClick()*/}
-          {/*      }}*/}
-          {/*  />*/}
-          {/*  <div class='flex'>*/}
-          {/*    <button onclick={handleSaveClick}>Save</button>*/}
-          {/*    <button onclick={handleCloseInput}>Cancel</button>*/}
-          {/*  </div>*/}
-          {/*</Show>*/}
-
-          {/*<Modal*/}
-          {/*    title="Please enter your own OpenAI API key"*/}
-          {/*    visible={showInput()}*/}
-          {/*    onOk={handleSaveClick}*/}
-          {/*    onCancel={handleCloseInput}*/}
-          {/*>*/}
-          {/*  <input*/}
-          {/*      ref={apiKey!}*/}
-          {/*      type="text"*/}
-          {/*      id="input"*/}
-          {/*      placeholder="Enter something..."*/}
-          {/*      autocomplete='off'*/}
-          {/*      autofocus*/}
-          {/*      disabled={loading()}*/}
-          {/*      onKeyDown={(e) => {*/}
-          {/*        e.key === 'Enter' && !e.isComposing && handleSaveClick()*/}
-          {/*      }}*/}
-          {/*  />*/}
-          {/*</Modal>*/}
         </div>
       </Show>
     </div>

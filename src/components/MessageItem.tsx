@@ -53,7 +53,7 @@ export default ({role, message, onDeleteClick, onGratuityClick}: Props) => {
     return (
         <div class="flex">
             <div
-                class="flex py-2 gap-3 px-4 rounded-lg transition-colors md:hover:bg-slate/5 dark:md:hover:bg-slate/2 relative message-item"
+                class="flex py-1 gap-3 px-4 rounded-lg transition-colors md:hover:bg-slate/5 dark:md:hover:bg-slate/2 relative message-item"
                 // class:op-75={role === "user"}
             >
                 <div

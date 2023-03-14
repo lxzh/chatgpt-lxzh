@@ -57,7 +57,7 @@ export default ({role, message, onDeleteClick, onGratuityClick}: Props) => {
                 // class:op-75={role === "user"}
             >
                 <div
-                    class={`shrink-0 w-5 h-5 mt-2 rounded-full op-80 ${roleClass[role]}`}
+                    class={`shrink-0 w-5 h-5 mt-0.5rem rounded-full op-80 ${roleClass[role]}`}
                 ></div>
                 <div
                     class="message py-0 pr-5 text-sm prose prose-slate dark:prose-invert dark:text-slate break-words overflow-hidden"

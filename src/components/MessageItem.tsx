@@ -53,14 +53,14 @@ export default ({role, message, onDeleteClick, onGratuityClick}: Props) => {
     return (
         <div class="flex">
             <div
-                class="flex py-0 gap-2 px-4 rounded-lg transition-colors md:hover:bg-slate/5 dark:md:hover:bg-slate/2 relative message-item"
+                class="flex py-0 gap-2 px-0 rounded-lg transition-colors md:hover:bg-slate/5 dark:md:hover:bg-slate/2 relative message-item"
                 // class:op-75={role === "user"}
             >
                 <div
                     class={`shrink-0 w-5 h-5 mt-0.5rem rounded-full op-80 ${roleClass[role]}`}
                 ></div>
                 <div
-                    class="message py-0 pr-5 text-sm prose prose-slate dark:prose-invert dark:text-slate break-words overflow-hidden"
+                    class="message py-0 pr-5 text-sm prose-slate dark:prose-invert dark:text-slate break-words overflow-hidden"
                     innerHTML={htmlString()}
                     onClick={(event) => {
                         if(event.target.tagName === 'A') {
@@ -84,9 +84,9 @@ export default ({role, message, onDeleteClick, onGratuityClick}: Props) => {
                 {/*        rounded-sm>*/}
                 {/*    <IconClear/>*/}
                 {/*</button>*/}
-                <div class='flex items-center'>
+                <div class='flex top pt-0.65rem'>
                     <button
-                        class="i-carbon:trash-can px-4 py-2 bg-op-5 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
+                        class="i-carbon:trash-can px-2 py-2 bg-op-5 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
                         onClick={() => onDeleteClick()}
                     />
                 </div>

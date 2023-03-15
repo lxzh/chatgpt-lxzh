@@ -264,7 +264,7 @@ export default (props: { prompts: PromptItem[] }) => {
   }
 
   return (
-    <div my-2 ref={containerRef!}>
+    <div>
       <Show when={gratuity()}>
         <div style="position: relative">
           <div style="position: absolute; top: 20px; right: 20px;z-index:1;">
@@ -280,66 +280,69 @@ export default (props: { prompts: PromptItem[] }) => {
 
       </Show>
       <Show when={!gratuity()}>
-        <div
-            id="message-container"
-            style={{
-              "background-color": "var(--c-bg)"
-            }}
-        >
-          <For each={messageList()}>
-            {(message, index) =>
-                <MessageItem role={message.role} message={message.content} onDeleteClick={() => {
-                  deleteMessage(index())
-                }} onGratuityClick={(event) => {
-                  return handleGratuityClick(event)
-                }}/>
+        <div mt-4 ref={containerRef!}>
+          <div
+              id="message-container"
+              style={{
+                "background-color": "var(--c-bg)"
+              }}
+          >
+            <For each={messageList()}>
+              {(message, index) =>
+                  <MessageItem role={message.role} message={message.content} onDeleteClick={() => {
+                    deleteMessage(index())
+                  }} onGratuityClick={(event) => {
+                    return handleGratuityClick(event)
+                  }}/>
+              }
+            </For>
+            {currentAssistantMessage() &&
+                <MessageItem role="assistant" message={currentAssistantMessage} onDeleteClick={undefined}
+                             onGratuityClick={undefined}/>
             }
-          </For>
-          {currentAssistantMessage() &&
-              <MessageItem role="assistant" message={currentAssistantMessage} onDeleteClick={undefined}
-                           onGratuityClick={undefined}/>
-          }
-        </div>
-        <div
-            class="pb-2em fixed bottom-0 z-100 op-0"
-            style={
-              containerWidth() === "init"
-                  ? {}
-                  : {
-                    transition: "opacity 1s ease-in-out",
-                    width: containerWidth(),
-                    opacity: 100,
-                    "background-color": "var(--c-bg)"
-                  }
-            }
-        >
-          <Show when={!compatiblePrompt().length && height() === "48px"}>
-            <SettingAction
-                setting={setting}
-                setSetting={setSetting}
-                clear={clearSession}
-                reAnswer={reAnswer}
-                messaages={messageList()}
-            />
-          </Show>
-          <Show when={!loading()} fallback={() =>
-              <div class="h-12 my-4 flex items-center justify-center bg-slate bg-op-15 text-slate rounded-sm">
-                <span>AI is thinking...</span>
-                <div
-                    class="ml-1em px-2 py-0.5 border border-slate text-slate rounded-md text-sm op-70 cursor-pointer hover:bg-slate/10"
-                    onClick={stopStreamFetch}
-                >
-                  不需要了
-                </div>
-              </div>
-          }>
-            <Show when={compatiblePrompt().length}>
-              <PromptList
-                  prompts={compatiblePrompt()}
-                  select={selectPrompt}
-              ></PromptList>
+          </div>
+          <div
+              class="pb-2em fixed bottom-0 z-100 op-0"
+              style={
+                containerWidth() === "init"
+                    ? {}
+                    : {
+                      transition: "opacity 1s ease-in-out",
+                      width: containerWidth(),
+                      opacity: 100,
+                      "background-color": "var(--c-bg)"
+                    }
+              }
+          >
+            <Show when={!compatiblePrompt().length && height() === "48px"}>
+              <SettingAction
+                  setting={setting}
+                  setSetting={setSetting}
+                  clear={clearSession}
+                  reAnswer={reAnswer}
+                  messaages={messageList()}
+              />
             </Show>
-            <div class="my-2 flex items-end">
+            <Show
+                when={!loading()}
+                fallback={() =>
+                <div class="h-12 my-4 flex items-center justify-center bg-slate bg-op-15 text-slate rounded-sm">
+                  <span>AI is thinking...</span>
+                  <div
+                      class="ml-1em px-2 py-0.5 border border-slate text-slate rounded-md text-sm op-70 cursor-pointer hover:bg-slate/10"
+                      onClick={stopStreamFetch}
+                  >
+                    不需要了
+                  </div>
+                </div>
+            }>
+              <Show when={compatiblePrompt().length}>
+                <PromptList
+                    prompts={compatiblePrompt()}
+                    select={selectPrompt}
+                ></PromptList>
+              </Show>
+              <div className="my-2 flex items-end">
           <textarea
               ref={inputRef!}
               id="input"
@@ -389,35 +392,34 @@ export default (props: { prompts: PromptItem[] }) => {
                 "border-top-left-radius":
                     compatiblePrompt().length === 0 ? "0.25rem" : 0
               }}
-              className="self-end py-3 resize-none w-full px-3 text-slate-7 dark:text-slate bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none placeholder:text-slate-400 placeholder:text-slate-400 placeholder:op-40"
+              class="self-end py-3 resize-none w-full px-3 text-slate-7 dark:text-slate bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none placeholder:text-slate-400 placeholder:text-slate-400 placeholder:op-40"
               rounded-l
           />
-              <Show when={inputContent()}>
-                <div class="flex item-center">
+                <Show when={inputContent()}>
+                    <button
+                        class="i-carbon:add-filled absolute right-3.5em bottom-3em rotate-45 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
+                        onClick={() => {
+                          setInputContent("")
+                          inputRef.focus()
+                        }}
+                    />
+                </Show>
+                <div
+                    class="flex text-slate-7 dark:text-slate bg-slate bg-op-15 text-op-80! hover:text-op-100! h-3em items-center rounded-r"
+                    style={{
+                      "border-top-right-radius":
+                          compatiblePrompt().length === 0 ? "0.25rem" : 0
+                    }}
+                >
                   <button
-                      class="i-carbon:add-filled absolute right-3.5em bottom-3.5em rotate-45 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
-                      onClick={() => {
-                        setInputContent("")
-                        inputRef.focus()
-                      }}
+                      title="Send"
+                      onClick={() => handleButtonClick()}
+                      class="i-carbon:send-filled text-5 mx-3"
                   />
                 </div>
-              </Show>
-              <div
-                  class="flex text-slate-7 dark:text-slate bg-slate bg-op-15 text-op-80! hover:text-op-100! h-3em items-center rounded-r"
-                  style={{
-                    "border-top-right-radius":
-                        compatiblePrompt().length === 0 ? "0.25rem" : 0
-                  }}
-              >
-                <button
-                    title="Send"
-                    onClick={() => handleButtonClick()}
-                    class="i-carbon:send-filled text-5 mx-3"
-                />
               </div>
-            </div>
-          </Show>
+            </Show>
+          </div>
         </div>
       </Show>
     </div>

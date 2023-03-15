@@ -342,7 +342,7 @@ export default (props: { prompts: PromptItem[] }) => {
                     select={selectPrompt}
                 ></PromptList>
               </Show>
-              <div className="my-2 flex items-end">
+              <div class="my-2 flex items-end">
           <textarea
               ref={inputRef!}
               id="input"

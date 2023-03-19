@@ -264,7 +264,7 @@ export default (props: { prompts: PromptItem[] }) => {
   }
 
   return (
-    <div>
+    <div ref={containerRef!}>
       <Show when={gratuity()}>
         <div style="position: relative">
           <div style="position: absolute; top: 20px; right: 20px;z-index:1;">
@@ -280,7 +280,7 @@ export default (props: { prompts: PromptItem[] }) => {
 
       </Show>
       <Show when={!gratuity()}>
-        <div mt-4 ref={containerRef!}>
+        <div mt-4 >
           <div
               id="message-container"
               style={{

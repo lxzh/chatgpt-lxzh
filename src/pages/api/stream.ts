@@ -5,8 +5,10 @@ import {
   ReconnectInterval
 } from "eventsource-parser"
 
-const localEnv = import.meta.env.OPENAI_API_KEY
+// const localEnv = import.meta.env.OPENAI_API_KEY
 // const vercelEnv = process.env.OPENAI_API_KEY
+
+const localEnv = ""
 
 const apiKeys = (localEnv?.split(/\s*\|\s*/) ?? []).filter(
   Boolean

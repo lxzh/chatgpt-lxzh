@@ -222,6 +222,10 @@ export default (props: { prompts: PromptItem[] }) => {
     }
   }
 
+  function showPromote() {
+    setCompatiblePrompt(props.prompts)
+  }
+
   function clearSession() {
     // setInputContent("")
     setMessageList([])
@@ -318,6 +322,7 @@ export default (props: { prompts: PromptItem[] }) => {
               <SettingAction
                   setting={setting}
                   setSetting={setSetting}
+                  showPromote={showPromote}
                   clear={clearSession}
                   reAnswer={reAnswer}
                   messaages={messageList()}

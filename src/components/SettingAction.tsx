@@ -7,6 +7,7 @@ import type { ChatMessage } from "../types"
 export default function SettingAction(props: {
   setting: Accessor<Setting>
   setSetting: Setter<Setting>
+  showPromote: any
   clear: any
   reAnswer: any
   messaages: ChatMessage[]
@@ -107,7 +108,13 @@ export default function SettingAction(props: {
           icon="i-carbon:settings"
           label="设置"
         />
+
         <div class="flex">
+          <ActionItem
+            onClick={props.showPromote}
+            icon="i-carbon:promote"
+            label="提示"
+          />
           <ActionItem
             onClick={exportJpg}
             icon="i-carbon:image"

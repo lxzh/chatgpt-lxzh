@@ -14,6 +14,9 @@ const apiKeys = (localEnv?.split(/\s*\|\s*/) ?? []).filter(
   Boolean
 )
 
+const apiHost = "https://api.openai.com"
+const apiPath = "/v1/chat/completions"
+
 export const post: APIRoute = async context => {
   const body = await context.request.json()
   const apiKey = apiKeys.length
@@ -32,7 +35,7 @@ export const post: APIRoute = async context => {
     return new Response("input content is empty")
   }
 
-  const completion = await fetch("https://api.openai.com/v1/chat/completions", {
+  const completion = await fetch(apiHost + apiPath, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${key}`
@@ -56,15 +59,6 @@ export const post: APIRoute = async context => {
             return
           }
           try {
-            // response = {
-            //   id: 'chatcmpl-6pULPSegWhFgi0XQ1DtgA3zTa1WR6',
-            //   object: 'chat.completion.chunk',
-            //   created: 1677729391,
-            //   model: 'gpt-3.5-turbo-0301',
-            //   choices: [
-            //     { delta: { content: '你' }, index: 0, finish_reason: null }
-            //   ],
-            // }
             const json = JSON.parse(data)
             const text = json.choices[0].delta?.content
             const queue = encoder.encode(text)

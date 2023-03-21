@@ -302,7 +302,7 @@ export default (props: { prompts: PromptItem[] }) => {
             }
           </div>
           <div
-              class="pb-2em fixed bottom-0 z-100 op-0"
+              class="pb-0.5em fixed bottom-0 z-100 op-0"
               style={
                 containerWidth() === "init"
                     ? {}

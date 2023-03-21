@@ -34,7 +34,7 @@ export default () => {
     }
 
     return (
-        <header class="sticky top--100px z-99>
+        <header class="sticky top--100px z-99">
             <Logo/>
             <div class="flex items-center mt-2">
                 <span class="text-2xl text-slate font-extrabold mr-1">ChatGPT</span>
